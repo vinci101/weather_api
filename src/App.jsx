@@ -6,8 +6,8 @@ const App = () => {
   const [data, setData] = useState({});
   const [location, setLocation] = useState("");
 
-  const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=${
-    import.meta.env_VITE
+  const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&units=metric&appid=${
+    import.meta.env.VITE_API_KEY
   }`;
 
   const searchLoc = (e) => {
@@ -19,6 +19,8 @@ const App = () => {
     }
   };
 
+  // const { temp, feels_like, humidity } = data.main != null ? data.main : null;
+  // console.log(temp);
   return (
     <div className="app">
       <div className="search">
@@ -33,7 +35,6 @@ const App = () => {
       <div className="container">
         <div className="top">
           <div className="location">{data.name}</div>
-          {console.log(data.main)}
           <div className="temp">
             {data.main ? <h1>{Math.round(data.main.temp)}°C</h1> : null}
           </div>
@@ -41,22 +42,24 @@ const App = () => {
             {data.main ? <p>{data.weather[0].main}</p> : null}
           </div>
         </div>
-        <div className="bottom">
-          <div className="feels">
-            <p>Feels Like</p>
-            {data.main ? (
-              <p className="bold">{Math.round(data.main.feels_like)}°C</p>
-            ) : null}
-          </div>
-          <div className="humidity">
-            <p>Humidity</p>
-            {data.main ? <p className="bold">{data.main.humidity}</p> : null}
-          </div>
-          {/* <div className="wind">
+        {data.name != undefined && (
+          <div className="bottom">
+            <div className="feels">
+              <p>Feels Like</p>
+              {data.main ? (
+                <p className="bold">{Math.round(data.main.feels_like)}°C</p>
+              ) : null}
+            </div>
+            <div className="humidity">
+              <p>Humidity</p>
+              {data.main ? <p className="bold">{data.main.humidity}%</p> : null}
+            </div>
+            {/* <div className="wind">
           <p>Wind Speed</p>
             <p className="bold">30kph</p>
           </div> */}
-        </div>
+          </div>
+        )}
       </div>
     </div>
   );
