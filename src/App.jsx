@@ -19,8 +19,18 @@ const App = () => {
     }
   };
 
-  // const { temp, feels_like, humidity } = data.main != null ? data.main : null;
-  // console.log(temp);
+  const { main, weather } = data;
+
+  const undef = () => {
+    if (main === undefined) {
+      console.log("de");
+    }
+    return main;
+  };
+
+  // const { temp } = undef();
+  // console.log(main);
+  console.log(undef());
   return (
     <div className="app">
       <div className="search">
